@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Juice Order System</title>
+    <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+    <div class="container">
+    <h1>🍹 Fresh Juice Order</h1>
+    <p>Fill in your order below</p>
+
+    <div class="form">
+        <label>Shop Name</label>
+        <input type="text" id="shop_name" placeholder="Enter your shop name" />
+
+        <label>Select Juice</label>
+        <select id="juice_type">
+        <option value="">-- Choose Juice --</option>
+        <option value="Orange">🍊 Fresh Orange</option>
+        <option value="Mango">🥭  Fresh Mango</option>
+        <option value="Strawberry">🍓 Fresh Strawberry</option>
+        <option value="Pineapple">🍍 Fresh Pineapple</option>
+        </select>
+
+        <label>Select Size</label>
+        <select id="size">
+        <option value="">-- Choose Size --</option>
+        <option value="2 Liter">2 Liter</option>
+        <option value="1 Liter">1 Liter</option>
+        <option value="Half Liter">Half Liter</option>
+        <option value="Quarter Liter">1/4 Liter</option>
+        </select>
+
+        <label>Quantity</label>
+        <input type="number" id="quantity" placeholder="How many bottles?" min="1" />
+
+        <button onclick="submitOrder()">Place Order</button>
+        <p id="message"></p>
+    </div>
+
+    <hr />
+
+    <h2>📋 All Orders</h2>
+    <button onclick="loadOrders()">Refresh Orders</button>
+    <table id="orders-table">
+        <thead>
+        <tr>
+        <th>#</th>
+        <th>Shop</th>
+        <th>Juice</th>
+        <th>Size</th>
+        <th>Qty</th>
+        <th>Date</th>
+        </tr>
+        </thead>
+        <tbody id="orders-body"></tbody>
+    </table>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
