@@ -1,0 +1,41 @@
+name: Java CI Pipeline
+
+on:
+  push:
+    branches: [ master, main ]
+  pull_request:
+    branches: [ master, main ]
+
+jobs:
+  build-and-test:
+    name: Build and Check Code
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Java
+        uses: actions/setup-java@v4
+        with:
+          java-version: '17'
+          distribution: 'temurin'
+
+      - name: Show project structure
+        run: find . -name "*.java"
+
+      - name: Compile Java code
+        run: |
+          javac src/rental/Vehicle.java src/rental/Car.java src/rental/Motorcycle.java src/rental/Customer.java src/rental/RentalManager.java src/rental/Main.java
+          echo "Compilation successful!"
+
+      - name: Run the program
+        run: |
+          java -cp src rental.Main
+
+      - name: Check OOP concepts
+        run: |
+          grep -r "private" src/rental/Vehicle.java && echo "Encapsulation found" || echo "Encapsulation missing"
+          grep -r "extends" src/rental/Car.java && echo "Inheritance found" || echo "Inheritance missing"
+          grep -r "@Override" src/rental/Car.java && echo "Polymorphism found" || echo "Polymorphism missing"
+          grep -r "abstract" src/rental/Vehicle.java && echo "Abstraction found" || echo "Abstraction missing"

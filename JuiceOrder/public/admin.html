@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Nobel Juice — Employee Dashboard</title>
+    <link rel="stylesheet" href="admin.css" />
+</head>
+<body>
+
+    <!-- LOGIN PAGE -->
+    <div id="login-page">
+    <div class="login-box">
+        <h1>🍊 Nobel Juice</h1>
+        <h2>የሰራተኛ መግቢያ / Employee Login</h2>
+        <input type="text" id="username" placeholder="Username / የተጠቃሚ ስም" />
+        <input type="password" id="password" placeholder="Password / የይለፍ ቃል" />
+        <button onclick="login()">🔐 Login / ግባ</button>
+        <p id="login-error" style="color:red; margin-top:10px;"></p>
+    </div>
+    </div>
+
+    <!-- DASHBOARD PAGE -->
+    <div id="dashboard-page" style="display:none;">
+
+    <div class="topbar">
+        <h1>🍊 Nobel Juice — Dashboard</h1>
+        <div>
+        <span id="employee-name"></span>
+        <button class="logout-btn" onclick="logout()">🚪 Logout</button>
+        </div>
+    </div>
+
+    <div class="dashboard-container">
+
+        <!-- LEFT: PENDING ORDERS -->
+        <div class="panel">
+        <h2>📋 ያልተመደቡ ትዕዛዞች / Pending Orders</h2>
+        <p style="font-size:13px; color:#888;">Select orders then assign to a truck below</p>
+        <div id="pending-orders"></div>
+
+        <div class="assign-box">
+            <h3>🚛 Assign to Truck / ለትራክ መድብ</h3>
+            <select id="truck-select">
+            <option value="">-- Select Truck --</option>
+            </select>
+            <button onclick="assignOrders()">✅ Assign Selected Orders</button>
+            <p id="assign-message"></p>
+        </div>
+        </div>
+
+        <!-- RIGHT: ASSIGNED & DELIVERED -->
+        <div class="panel">
+        <h2>🚚 የተመደቡ ትዕዛዞች / Assigned Orders</h2>
+        <div id="assigned-orders"></div>
+
+        <hr style="margin:20px 0;" />
+
+        <h2>✅ የደረሱ ትዕዛዞች / Delivered Orders</h2>
+        <div id="delivered-orders"></div>
+        </div>
+
+    </div>
+
+    <!-- TRUCKS MANAGEMENT -->
+    <div class="dashboard-container">
+        <div class="panel">
+        <h2>🚛 Trucks / ትራኮች</h2>
+        <div id="trucks-list"></div>
+        <hr style="margin:15px 0;" />
+        <h3>➕ Add New Truck / አዲስ ትራክ ጨምር</h3>
+        <input type="text" id="new-truck-code" placeholder="Truck Code e.g. TRK-005" />
+        <input type="text" id="new-driver-name" placeholder="Driver Name / የሹፌር ስም" />
+        <button onclick="addTruck()">➕ Add Truck</button>
+        <p id="truck-message"></p>
+        </div>
+
+        <!-- ADD EMPLOYEE -->
+        <div class="panel">
+<h2>👤 Add Employee / Driver / ሰራተኛ ወይም ሹፌር ጨምር</h2>
+<input type="text" id="new-emp-name" placeholder="Full Name / ሙሉ ስም" />
+<input type="text" id="new-emp-username" placeholder="Username / የተጠቃሚ ስም" />
+<input type="password" id="new-emp-password" placeholder="Password / የይለፍ ቃል" />
+<select id="new-emp-role" onchange="toggleTruckField()">
+    <option value="">-- Select Role --</option>
+    <option value="employee">👤 Employee / ሰራተኛ</option>
+    <option value="driver">🚛 Driver / ሹፌር</option>
+</select>
+<div id="truck-field" style="display:none;">
+    <input type="text" id="new-emp-truck" placeholder="Truck Code e.g. TRK-005" />
+</div>
+<button onclick="addEmployee()">➕ Add User / ጨምር</button>
+<p id="emp-message"></p>
+        </div>
+    </div>
+
+    </div>
+
+    <script src="admin.js"></script>
+</body>
+</html>

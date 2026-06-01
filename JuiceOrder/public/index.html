@@ -3,61 +3,121 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-    <title>Juice Order System</title>
+    <title>Nobel Juice - Fresh Orange Juice Order</title>
     <link rel="stylesheet" href="style.css" />
 </head>
 <body>
 
-    <div class="container">
-    <h1>🍹 Fresh Juice Order</h1>
-    <p>Fill in your order below</p>
+    <div class="header">
+    <h1>🍊 Nobel Juice</h1>
+    <p>100% Pure Fresh Orange Juice — Ethiopia</p>
+    </div>
 
-    <div class="form">
+    <div class="container">
+
+    <!-- ORDER FORM -->
+    <div class="card" id="order-form">
+        <h2>📋 Place Your Order</h2>
+
         <label>Shop Name</label>
         <input type="text" id="shop_name" placeholder="Enter your shop name" />
+
+        <label>Phone Number</label>
+        <input type="tel" id="phone" placeholder="e.g. 0911234567" />
+
+<label>Location / Address</label>
+<input type="text" id="location" placeholder="e.g. Bole, Addis Ababa" />
+<button type="button" onclick="getLocation()" id="location-btn">
+    📍 Use My Current Location
+</button>
+<div id="location-status" style="
+    font-size: 13px;
+    color: #888;
+    display: none;">
+</div>
 
         <label>Select Juice</label>
         <select id="juice_type">
         <option value="">-- Choose Juice --</option>
-        <option value="Orange">🍊 Fresh Orange</option>
-        <option value="Mango">🥭  Fresh Mango</option>
-        <option value="Strawberry">🍓 Fresh Strawberry</option>
-        <option value="Pineapple">🍍 Fresh Pineapple</option>
+        <option value="Fresh Orange">🍊 Fresh Orange Juice</option>
         </select>
 
         <label>Select Size</label>
-        <select id="size">
+        <select id="size" onchange="updatePacketInfo()">
         <option value="">-- Choose Size --</option>
-        <option value="2 Liter">2 Liter</option>
-        <option value="1 Liter">1 Liter</option>
-        <option value="Half Liter">Half Liter</option>
-        <option value="Quarter Liter">1/4 Liter</option>
+        <option value="2 Liter">2 Liter (6 bottles/packet) — 1,080 ETB/packet</option>
+        <option value="1 Liter">1 Liter (8 bottles/packet) — 760 ETB/packet</option>
+        <option value="Half Liter">Half Liter (10 bottles/packet) — 500 ETB/packet</option>
         </select>
 
-        <label>Quantity</label>
-        <input type="number" id="quantity" placeholder="How many bottles?" min="1" />
+        <div id="packet-info" class="info-box" style="display:none;"></div>
 
-        <button onclick="submitOrder()">Place Order</button>
+        <label>Number of Packets</label>
+        <input type="number" id="quantity" placeholder="How many packets?" min="1" oninput="updatePacketInfo()" />
+
+        <div id="total-box" class="total-box" style="display:none;"></div>
+
+        <label>Payment Method</label>
+        <select id="payment_method">
+        <option value="">-- Choose Payment --</option>
+        <option value="Telebirr">📱 Telebirr</option>
+        <option value="CBE">🏦 CBE (Commercial Bank)</option>
+        </select>
+
+        <button onclick="showBill()">📄 See Bill</button>
         <p id="message"></p>
+    </div>
+
+    <!-- BILL SUMMARY -->
+    <div class="card" id="bill-section" style="display:none;">
+        <h2>🧾 Order Bill</h2>
+        <div id="bill-details"></div>
+        <div class="payment-info">
+        <h3>💳 Payment Instructions</h3>
+        <div id="payment-instructions"></div>
+        </div>
+        <button onclick="confirmOrder()">✅ Confirm & Place Order</button>
+        <button class="cancel-btn" onclick="cancelBill()">❌ Cancel</button>
+    </div>
+
+    <!-- SUCCESS MESSAGE -->
+    <div class="card" id="success-section" style="display:none;">
+        <div class="success-box">
+        <h2>🎉 Order Successful!</h2>
+        <p id="success-message"></p>
+        <button onclick="newOrder()">🛒 Place New Order</button>
+        </div>
     </div>
 
     <hr />
 
-    <h2>📋 All Orders</h2>
-    <button onclick="loadOrders()">Refresh Orders</button>
-    <table id="orders-table">
-        <thead>
-        <tr>
-        <th>#</th>
-        <th>Shop</th>
-        <th>Juice</th>
-        <th>Size</th>
-        <th>Qty</th>
-        <th>Date</th>
-        </tr>
-        </thead>
-        <tbody id="orders-body"></tbody>
-    </table>
+    <!-- ALL ORDERS TABLE -->
+    <div class="card">
+        <h2>📦 All Orders</h2>
+        <button onclick="loadOrders()">🔄 Refresh Orders</button>
+        <div class="table-wrapper">
+        <table>
+            <thead>
+            <tr>
+            <th>#</th>
+            <th>Shop</th>
+            <th>Phone</th>
+            <th>Location</th>
+            <th>Juice</th>
+            <th>Size</th>
+            <th>Packets</th>
+            <th>Bottles</th>
+            <th>Total (ETB)</th>
+            <th>Payment</th>
+            <th>Status</th>
+            <th>Date</th>
+            </tr>
+            </thead>
+            <tbody id="orders-body"></tbody>
+        </table>
+        </div>
+    </div>
+
     </div>
 
     <script src="script.js"></script>

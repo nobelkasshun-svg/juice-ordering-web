@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Nobel Juice — Driver Dashboard</title>
+    <link rel="stylesheet" href="admin.css" />
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+</head>
+<body>
+
+    <!-- LOGIN -->
+    <div id="login-page">
+    <div class="login-box">
+        <h1>🚛 Nobel Juice</h1>
+        <h2>የሹፌር መግቢያ / Driver Login</h2>
+        <input type="text" id="username" placeholder="Username / የተጠቃሚ ስም" />
+        <input type="password" id="password" placeholder="Password / የይለፍ ቃል" />
+        <button onclick="login()">🔐 Login / ግባ</button>
+        <p id="login-error" style="color:red; margin-top:10px;"></p>
+    </div>
+    </div>
+
+    <!-- DRIVER DASHBOARD -->
+    <div id="dashboard-page" style="display:none;">
+
+    <div class="topbar">
+        <div>
+        <h1>🚛 Nobel Juice — Driver</h1>
+        <span id="truck-info" style="font-size:13px; opacity:0.9;"></span>
+        </div>
+        <div>
+        <span id="driver-name"></span>
+        <button class="logout-btn" onclick="logout()">🚪 Logout</button>
+        </div>
+    </div>
+
+    <div class="dashboard-container">
+
+        <!-- LEFT: DELIVERY LIST -->
+        <div class="panel">
+        <h2>📦 የእኔ ትዕዛዞች / My Deliveries</h2>
+        <button onclick="loadDeliveries()" style="margin-bottom:10px;">
+            🔄 Refresh / አድስ
+        </button>
+        <div id="delivery-list"></div>
+        </div>
+
+        <!-- RIGHT: MAP -->
+        <div class="panel">
+        <h2>🗺️ የመላኪያ ካርታ / Delivery Map</h2>
+        <p style="font-size:12px; color:#888; margin-bottom:8px;">
+            Your stops are shown on the map below
+        </p>
+        <div id="map" style="height:450px; border-radius:10px;"></div>
+        </div>
+
+    </div>
+
+    <!-- COMPLETED DELIVERIES -->
+    <div class="dashboard-container">
+        <div class="panel">
+        <h2>✅ የተጠናቀቁ ትዕዛዞች / Completed Deliveries</h2>
+        <div id="completed-list"></div>
+        </div>
+    </div>
+
+    div>
+
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <script src="driver.js"></script>
+</body>
+</html>
