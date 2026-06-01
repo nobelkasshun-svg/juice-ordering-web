@@ -3,87 +3,142 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-    <title>Nobel Juice - Fresh Orange Juice Order</title>
+    <title>Nobel Juice - Fresh Juice Order</title>
     <link rel="stylesheet" href="style.css" />
 </head>
 <body>
 
     <div class="header">
-    <h1>🍊 Nobel Juice</h1>
-    <p>100% Pure Fresh Orange Juice — Ethiopia</p>
+    <h1>🍹 Nobel Juice</h1>
+    <p>100% Pure Fresh Juice — Ethiopia</p>
     </div>
 
     <div class="container">
 
-    <!-- ORDER FORM -->
     <div class="card" id="order-form">
         <h2>📋 Place Your Order</h2>
 
-        <label>Shop Name</label>
+        <label>Shop Name / የሱቅ ስም</label>
         <input type="text" id="shop_name" placeholder="Enter your shop name" />
 
-        <label>Phone Number</label>
+        <label>Phone Number / ስልክ ቁጥር</label>
         <input type="tel" id="phone" placeholder="e.g. 0911234567" />
 
-<label>Location / Address</label>
-<input type="text" id="location" placeholder="e.g. Bole, Addis Ababa" />
-<button type="button" onclick="getLocation()" id="location-btn">
-    📍 Use My Current Location
-</button>
-<div id="location-status" style="
-    font-size: 13px;
-    color: #888;
-    display: none;">
-</div>
+        <label>Location / አድራሻ</label>
+        <input type="text" id="location" placeholder="e.g. Bole, Addis Ababa" />
+        <button type="button" onclick="getLocation()" id="location-btn">
+        📍 Use My Current Location
+        </button>
+        <div id="location-status" style="font-size:13px; color:#888; display:none;"></div>
 
-        <label>Select Juice</label>
-        <select id="juice_type">
-        <option value="">-- Choose Juice --</option>
-        <option value="Fresh Orange">🍊 Fresh Orange Juice</option>
-        </select>
-
-        <label>Select Size</label>
-        <select id="size" onchange="updatePacketInfo()">
-        <option value="">-- Choose Size --</option>
-        <option value="2 Liter">2 Liter (6 bottles/packet) — 1,080 ETB/packet</option>
-        <option value="1 Liter">1 Liter (8 bottles/packet) — 760 ETB/packet</option>
-        <option value="Half Liter">Half Liter (10 bottles/packet) — 500 ETB/packet</option>
-        </select>
-
-        <div id="packet-info" class="info-box" style="display:none;"></div>
-
-        <label>Number of Packets</label>
-        <input type="number" id="quantity" placeholder="How many packets?" min="1" oninput="updatePacketInfo()" />
-
-        <div id="total-box" class="total-box" style="display:none;"></div>
-
-        <label>Payment Method</label>
+        <label>Payment Method / የክፍያ መንገድ</label>
         <select id="payment_method">
         <option value="">-- Choose Payment --</option>
         <option value="Telebirr">📱 Telebirr</option>
         <option value="CBE">🏦 CBE (Commercial Bank)</option>
         </select>
 
-        <button onclick="showBill()">📄 See Bill</button>
+        <hr style="margin:10px 0;" />
+        <h3 style="color:#e65100;">🧃 Select Your Juices</h3>
+        <p style="font-size:13px; color:#888;">
+        Minimum order is <strong>15 packets total</strong>. Choose size and packets for each juice.
+        </p>
+
+        <!-- ORANGE -->
+        <div class="juice-row">
+        <div class="juice-label">🍊 Fresh Orange</div>
+        <div class="juice-inputs">
+            <select id="size_orange" onchange="updateTotal()">
+            <option value="">-- Size --</option>
+            <option value="2 Liter">2 Liter (6 bottles)</option>
+            <option value="1 Liter">1 Liter (8 bottles)</option>
+            <option value="Half Liter">Half Liter (10 bottles)</option>
+            </select>
+            <input type="number" id="qty_orange" placeholder="Packets" min="0" oninput="updateTotal()" />
+        </div>
+        <div id="info_orange" class="juice-info"></div>
+        </div>
+
+        <!-- MANGO -->
+        <div class="juice-row">
+        <div class="juice-label">🥭 Fresh Mango</div>
+        <div class="juice-inputs">
+            <select id="size_mango" onchange="updateTotal()">
+            <option value="">-- Size --</option>
+            <option value="2 Liter">2 Liter (6 bottles)</option>
+            <option value="1 Liter">1 Liter (8 bottles)</option>
+            <option value="Half Liter">Half Liter (10 bottles)</option>
+            </select>
+            <input type="number" id="qty_mango" placeholder="Packets" min="0" oninput="updateTotal()" />
+        </div>
+        <div id="info_mango" class="juice-info"></div>
+        </div>
+
+        <!-- STRAWBERRY -->
+        <div class="juice-row">
+        <div class="juice-label">🍓 Fresh Strawberry</div>
+        <div class="juice-inputs">
+            <select id="size_strawberry" onchange="updateTotal()">
+            <option value="">-- Size --</option>
+            <option value="2 Liter">2 Liter (6 bottles)</option>
+            <option value="1 Liter">1 Liter (8 bottles)</option>
+            <option value="Half Liter">Half Liter (10 bottles)</option>
+            </select>
+            <input type="number" id="qty_strawberry" placeholder="Packets" min="0" oninput="updateTotal()" />
+        </div>
+        <div id="info_strawberry" class="juice-info"></div>
+        </div>
+
+        <!-- PINEAPPLE -->
+        <div class="juice-row">
+        <div class="juice-label">🍍 Fresh Pineapple</div>
+        <div class="juice-inputs">
+            <select id="size_pineapple" onchange="updateTotal()">
+            <option value="">-- Size --</option>
+            <option value="2 Liter">2 Liter (6 bottles)</option>
+            <option value="1 Liter">1 Liter (8 bottles)</option>
+            <option value="Half Liter">Half Liter (10 bottles)</option>
+            </select>
+            <input type="number" id="qty_pineapple" placeholder="Packets" min="0" oninput="updateTotal()" />
+        </div>
+        <div id="info_pineapple" class="juice-info"></div>
+        </div>
+
+        <!-- TOTAL BOX -->
+        <div id="total-box" class="total-box" style="display:none;"></div>
+
+        <!-- MIN ORDER WARNING -->
+        <div id="min-warning" style="
+        display:none;
+        background:#fff3e0;
+        border-left:4px solid red;
+        padding:10px;
+        border-radius:8px;
+        color:red;
+        font-weight:bold;
+        font-size:14px;">
+        </div>
+
+        <button onclick="showBill()">📄 See Bill / ደረሰኝ ይመልከቱ</button>
         <p id="message"></p>
     </div>
 
-    <!-- BILL SUMMARY -->
+    <!-- BILL SECTION -->
     <div class="card" id="bill-section" style="display:none;">
-        <h2>🧾 Order Bill</h2>
+        <h2>🧾 Order Bill / ደረሰኝ</h2>
         <div id="bill-details"></div>
         <div class="payment-info">
-        <h3>💳 Payment Instructions</h3>
+        <h3>💳 Payment Instructions / የክፍያ መመሪያ</h3>
         <div id="payment-instructions"></div>
         </div>
         <button onclick="confirmOrder()">✅ Confirm & Place Order</button>
-        <button class="cancel-btn" onclick="cancelBill()">❌ Cancel</button>
+        <button class="cancel-btn" onclick="cancelBill()">❌ Cancel / ሰርዝ</button>
     </div>
 
-    <!-- SUCCESS MESSAGE -->
+    <!-- SUCCESS SECTION -->
     <div class="card" id="success-section" style="display:none;">
         <div class="success-box">
-        <h2>🎉 Order Successful!</h2>
+        <h2>🎉 Order Successful! / ትዕዛዝ ተቀበለ!</h2>
         <p id="success-message"></p>
         <button onclick="newOrder()">🛒 Place New Order</button>
         </div>
@@ -91,7 +146,7 @@
 
     <hr />
 
-    <!-- ALL ORDERS TABLE -->
+    <!-- ORDERS TABLE -->
     <div class="card">
         <h2>📦 All Orders</h2>
         <button onclick="loadOrders()">🔄 Refresh Orders</button>
@@ -99,18 +154,16 @@
         <table>
             <thead>
             <tr>
-            <th>#</th>
-            <th>Shop</th>
-            <th>Phone</th>
-            <th>Location</th>
-            <th>Juice</th>
-            <th>Size</th>
-            <th>Packets</th>
-            <th>Bottles</th>
-            <th>Total (ETB)</th>
-            <th>Payment</th>
-            <th>Status</th>
-            <th>Date</th>
+                <th>#</th>
+                <th>Shop</th>
+                <th>Phone</th>
+                <th>Location</th>
+                <th>Juices Ordered</th>
+                <th>Total Packets</th>
+                <th>Total (ETB)</th>
+                <th>Payment</th>
+                <th>Status</th>
+                <th>Date</th>
             </tr>
             </thead>
             <tbody id="orders-body"></tbody>

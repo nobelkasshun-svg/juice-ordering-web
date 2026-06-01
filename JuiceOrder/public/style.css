@@ -63,33 +63,56 @@ button {
 }
 
 button:hover { opacity: 0.9; }
-
 .cancel-btn { background: #ccc; color: #333; margin-top: 5px; }
 
-.info-box {
-    background: #fff3e0;
-    padding: 10px 15px;
-    border-radius: 8px;
-    color: #e65100;
-    font-weight: bold;
-    border-left: 4px solid #ff9800;
+/* JUICE ROW */
+.juice-row {
+    border: 1px solid #eee;
+    border-radius: 10px;
+    padding: 12px;
+    background: #fffde7;
 }
 
-.total-box {
-    background: #e8f5e9;
-    padding: 10px 15px;
-    border-radius: 8px;
-    color: #2e7d32;
+.juice-label {
     font-weight: bold;
     font-size: 16px;
-    border-left: 4px solid #2e7d32;
+    margin-bottom: 8px;
+    color: #e65100;
 }
 
+.juice-inputs {
+    display: flex;
+    gap: 10px;
+}
+
+.juice-inputs select { flex: 2; }
+.juice-inputs input { flex: 1; }
+
+.juice-info {
+    font-size: 13px;
+    color: #2e7d32;
+    font-weight: bold;
+    margin-top: 6px;
+}
+
+/* TOTAL BOX */
+.total-box {
+    background: #e8f5e9;
+    padding: 15px;
+    border-radius: 8px;
+    font-weight: bold;
+    font-size: 15px;
+    border-left: 4px solid #2e7d32;
+    color: #2e7d32;
+}
+
+/* BILL */
 .bill-row {
     display: flex;
     justify-content: space-between;
     padding: 8px 0;
     border-bottom: 1px solid #eee;
+    font-size: 14px;
 }
 
 .bill-total {
@@ -118,17 +141,6 @@ button:hover { opacity: 0.9; }
 
 #message { color: red; font-weight: bold; }
 
-hr { margin: 10px 0 25px; border: 1px solid #eee; }
-
-.table-wrapper { overflow-x: auto; margin-top: 10px; }
-
-table { width: 100%; border-collapse: collapse; min-width: 700px; }
-th { background: #e65100; color: white; padding: 10px; font-size: 13px; }
-td { padding: 10px; border-bottom: 1px solid #eee; text-align: center; font-size: 13px; }
-tr:hover { background: #fff8e1; }
-
-.status-pending { color: orange; font-weight: bold; }
-.status-confirmed { color: green; font-weight: bold; }
 #location-btn {
     background: white;
     color: #e65100;
@@ -140,6 +152,15 @@ tr:hover { background: #fff8e1; }
     border-radius: 8px;
 }
 
-#location-btn:hover {
-  background: #fff3e0;
-}
+#location-btn:hover { background: #fff3e0; }
+
+hr { margin: 10px 0 25px; border: 1px solid #eee; }
+
+.table-wrapper { overflow-x: auto; margin-top: 10px; }
+table { width: 100%; border-collapse: collapse; min-width: 700px; }
+th { background: #e65100; color: white; padding: 10px; font-size: 13px; }
+td { padding: 10px; border-bottom: 1px solid #eee; text-align: center; font-size: 13px; }
+tr:hover { background: #fff8e1; }
+
+.status-pending { color: orange; font-weight: bold; }
+.status-confirmed { color: green; font-weight: bold; }

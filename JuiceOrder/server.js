@@ -11,12 +11,13 @@ app.use(express.static('public'));
 // ─── CUSTOMER ───────────────────────────────────────────
 
 app.post('/order', (req, res) => {
-    const { shop_name, phone, location, latitude, longitude, juice_type, size, quantity, total_bottles, total_price, payment_method } = req.body;
+    const { shop_name, phone, location, latitude, longitude, items, total_packets, total_bottles, total_price, payment_method } = req.body;
     const order_date = new Date().toLocaleString();
+    const itemsJSON = JSON.stringify(items || []);
     db.run(
-    `INSERT INTO orders (shop_name, phone, location, latitude, longitude, juice_type, size, quantity, total_bottles, total_price, payment_method, status, order_date)
-        VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, 'Pending', ?)`,
-    [shop_name, phone, location, latitude, longitude, juice_type, size, quantity, total_bottles, total_price, payment_method, order_date],
+    `INSERT INTO orders (shop_name, phone, location, latitude, longitude, items, total_packets, total_bottles, total_price, payment_method, status, order_date)
+        VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, 'Pending', ?)`,
+    [shop_name, phone, location, latitude, longitude, itemsJSON, total_packets, total_bottles, total_price, payment_method, order_date],
     function (err) {
         if (err) return res.status(500).json({ error: err.message });
         res.json({ message: '✅ Order placed successfully!', id: this.lastID });

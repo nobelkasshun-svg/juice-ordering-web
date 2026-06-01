@@ -12,9 +12,8 @@ db.serialize(() => {
         location TEXT NOT NULL,
         latitude REAL,
         longitude REAL,
-        juice_type TEXT NOT NULL,
-        size TEXT NOT NULL,
-        quantity INTEGER NOT NULL,
+        items TEXT,
+        total_packets INTEGER DEFAULT 0,
         total_bottles INTEGER NOT NULL,
         total_price REAL NOT NULL,
         payment_method TEXT NOT NULL,
@@ -44,17 +43,19 @@ db.serialize(() => {
     )
     `);
 
-  // Default admin
-    db.run(`
-    INSERT OR IGNORE INTO users (name, username, password, role)
-    VALUES ('Admin', 'admin', 'nobel2024', 'admin')
-    `);
+    db.run(`INSERT OR IGNORE INTO users (name, username, password, role) VALUES ('Admin', 'admin', 'nobel2024', 'admin')`);
+    db.run(`INSERT OR IGNORE INTO users (name, username, password, role) VALUES ('Sara Employee', 'sara', 'sara123', 'employee')`);
 
-  // Default employee
-    db.run(`
-    INSERT OR IGNORE INTO users (name, username, password, role)
-    VALUES ('Sara Employee', 'sara', 'sara123', 'employee')
-    `);
+    db.run(`INSERT OR IGNORE INTO trucks (truck_code, driver_name) VALUES ('TRK-001', 'Abebe Kebede')`);
+    db.run(`INSERT OR IGNORE INTO trucks (truck_code, driver_name) VALUES ('TRK-002', 'Tadesse Alemu')`);
+    db.run(`INSERT OR IGNORE INTO trucks (truck_code, driver_name) VALUES ('TRK-003', 'Girma Haile')`);
+    db.run(`INSERT OR IGNORE INTO trucks (truck_code, driver_name) VALUES ('TRK-004', 'Bekele Worku')`);
 
-  // Default trucks
-    db.run(`INSERT OR IGNORE INTO trucks (truck_
+    db.run(`INSERT OR IGNORE INTO users (name, username, password, role, truck_code) VALUES ('Abebe Kebede', 'abebe', 'drv001', 'driver', 'TRK-001')`);
+    db.run(`INSERT OR IGNORE INTO users (name, username, password, role, truck_code) VALUES ('Tadesse Alemu', 'tadesse', 'drv002', 'driver', 'TRK-002')`);
+    db.run(`INSERT OR IGNORE INTO users (name, username, password, role, truck_code) VALUES ('Girma Haile', 'girma', 'drv003', 'driver', 'TRK-003')`);
+    db.run(`INSERT OR IGNORE INTO users (name, username, password, role, truck_code) VALUES ('Bekele Worku', 'bekele', 'drv004', 'driver', 'TRK-004')`);
+
+});
+
+module.exports = db;s
