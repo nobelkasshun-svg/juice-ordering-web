@@ -58,4 +58,4 @@ db.serialize(() => {
 
 });
 
-module.exports = db;s
+module.exports = db;

@@ -5,8 +5,48 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <title>Nobel Juice — Employee Dashboard</title>
     <link rel="stylesheet" href="admin.css" />
+    <style>
+    #notification-popup {
+        display: none;
+        position: fixed;
+        top: 20px;
+        right: 20px;
+        background: white;
+        border-left: 5px solid #e65100;
+        border-radius: 12px;
+        padding: 20px 25px;
+        box-shadow: 0 8px 30px rgba(0,0,0,0.2);
+        z-index: 9999;
+        min-width: 300px;
+        animation: slideIn 0.4s ease;
+    }
+    @keyframes slideIn {
+        from { transform: translateX(400px); opacity: 0; }
+        to   { transform: translateX(0);     opacity: 1; }
+    }
+    #notification-popup h3 { color: #e65100; margin-bottom: 8px; font-size: 16px; }
+    #notification-popup p  { font-size: 13px; color: #555; margin-bottom: 10px; }
+    #notification-popup button {
+        padding: 6px 14px; font-size: 13px;
+        background: #e65100; color: white;
+        border: none; border-radius: 6px; cursor: pointer;
+    }
+    #notification-badge {
+        display: none;
+        background: red; color: white;
+        border-radius: 50%; padding: 2px 8px;
+        font-size: 12px; font-weight: bold; margin-left: 8px;
+    }
+    </style>
 </head>
 <body>
+
+    <!-- NOTIFICATION POPUP -->
+    <div id="notification-popup">
+    <h3>🔔 New Order! / አዲስ ትዕዛዝ!</h3>
+    <p id="notification-text"></p>
+    <button onclick="closeNotification()">✅ View Orders</button>
+    </div>
 
     <!-- LOGIN PAGE -->
     <div id="login-page">
@@ -15,12 +55,13 @@
         <h2>የሰራተኛ መግቢያ / Employee Login</h2>
         <input type="text" id="username" placeholder="Username / የተጠቃሚ ስም" />
         <input type="password" id="password" placeholder="Password / የይለፍ ቃል" />
-        <button onclick="login()">🔐 Login / ግባ</button>
+        <button type="button" id="login-btn">🔐 Login / ግባ</button>
         <p id="login-error" style="color:red; margin-top:10px;"></p>
     </div>
     </div>
 
-    <!-- DASHBOARD PAGE -->
+                <!-- DASHBOARD PAGE -->
+
     <div id="dashboard-page" style="display:none;">
 
     <div class="topbar">
@@ -33,10 +74,13 @@
 
     <div class="dashboard-container">
 
-        <!-- LEFT: PENDING ORDERS -->
+                <!-- LEFT: PENDING ORDERS -->
+
         <div class="panel">
-        <h2>📋 ያልተመደቡ ትዕዛዞች / Pending Orders</h2>
-        <p style="font-size:13px; color:#888;">Select orders then assign to a truck below</p>
+        <h2>📋 ያልተመደቡ ትዕዛዞች / Pending Orders
+            <span id="notification-badge">0</span>
+        </h2>
+        <p style="font-size:13px; color:#888;">Click orders to select, then assign to a truck</p>
         <div id="pending-orders"></div>
 
         <div class="assign-box">
@@ -44,26 +88,26 @@
             <select id="truck-select">
             <option value="">-- Select Truck --</option>
             </select>
-            <button onclick="assignOrders()">✅ Assign Selected Orders</button>
+            <button type="button" onclick="assignOrders()">✅ Assign Selected Orders</button>
             <p id="assign-message"></p>
         </div>
         </div>
 
-        <!-- RIGHT: ASSIGNED & DELIVERED -->
+                    <!-- RIGHT: ASSIGNED & DELIVERED -->
+
         <div class="panel">
         <h2>🚚 የተመደቡ ትዕዛዞች / Assigned Orders</h2>
         <div id="assigned-orders"></div>
-
         <hr style="margin:20px 0;" />
-
         <h2>✅ የደረሱ ትዕዛዞች / Delivered Orders</h2>
         <div id="delivered-orders"></div>
         </div>
 
     </div>
 
-    <!-- TRUCKS MANAGEMENT -->
+    <!-- TRUCKS & EMPLOYEES -->
     <div class="dashboard-container">
+
         <div class="panel">
         <h2>🚛 Trucks / ትራኮች</h2>
         <div id="trucks-list"></div>
@@ -71,31 +115,39 @@
         <h3>➕ Add New Truck / አዲስ ትራክ ጨምር</h3>
         <input type="text" id="new-truck-code" placeholder="Truck Code e.g. TRK-005" />
         <input type="text" id="new-driver-name" placeholder="Driver Name / የሹፌር ስም" />
-        <button onclick="addTruck()">➕ Add Truck</button>
+        <button type="button" onclick="addTruck()">➕ Add Truck</button>
         <p id="truck-message"></p>
         </div>
 
-        <!-- ADD EMPLOYEE -->
         <div class="panel">
-<h2>👤 Add Employee / Driver / ሰራተኛ ወይም ሹፌር ጨምር</h2>
-<input type="text" id="new-emp-name" placeholder="Full Name / ሙሉ ስም" />
-<input type="text" id="new-emp-username" placeholder="Username / የተጠቃሚ ስም" />
-<input type="password" id="new-emp-password" placeholder="Password / የይለፍ ቃል" />
-<select id="new-emp-role" onchange="toggleTruckField()">
-    <option value="">-- Select Role --</option>
-    <option value="employee">👤 Employee / ሰራተኛ</option>
-    <option value="driver">🚛 Driver / ሹፌር</option>
-</select>
-<div id="truck-field" style="display:none;">
-    <input type="text" id="new-emp-truck" placeholder="Truck Code e.g. TRK-005" />
-</div>
-<button onclick="addEmployee()">➕ Add User / ጨምር</button>
-<p id="emp-message"></p>
+        <h2>👤 Add Employee / Driver</h2>
+        <input type="text" id="new-emp-name" placeholder="Full Name / ሙሉ ስም" />
+        <input type="text" id="new-emp-username" placeholder="Username / የተጠቃሚ ስም" />
+        <input type="password" id="new-emp-password" placeholder="Password / የይለፍ ቃል" />
+        <select id="new-emp-role" onchange="toggleTruckField()">
+            <option value="">-- Select Role --</option>
+            <option value="employee">👤 Employee / ሰራተኛ</option>
+            <option value="driver">🚛 Driver / ሹፌር</option>
+        </select>
+        <div id="truck-field" style="display:none;">
+            <input type="text" id="new-emp-truck" placeholder="Truck Code e.g. TRK-005" />
         </div>
+        <button type="button" onclick="addEmployee()">➕ Add User / ጨምር</button>
+        <p id="emp-message"></p>
+        </div>
+
     </div>
 
     </div>
 
     <script src="admin.js"></script>
+    <script>
+    document.getElementById('login-btn').addEventListener('click', function() {
+        login();
+    });
+    document.getElementById('password').addEventListener('keypress', function(e) {
+        if (e.key === 'Enter') login();
+    });
+    </script>
 </body>
 </html>

@@ -164,3 +164,53 @@ tr:hover { background: #fff8e1; }
 
 .status-pending { color: orange; font-weight: bold; }
 .status-confirmed { color: green; font-weight: bold; }
+
+/* JUICE SECTION */
+.juice-section {
+    border: 2px solid #ffe0b2;
+    border-radius: 10px;
+    padding: 15px;
+    background: #fffde7;
+    margin-bottom: 5px;
+}
+
+.juice-title {
+    font-size: 17px;
+    font-weight: bold;
+    color: #e65100;
+    margin-bottom: 10px;
+    padding-bottom: 8px;
+    border-bottom: 1px solid #ffe0b2;
+}
+
+.size-row {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 8px;
+    flex-wrap: wrap;
+}
+
+.size-label {
+    flex: 1;
+    min-width: 180px;
+    font-size: 14px;
+    color: #555;
+}
+
+.size-label small {
+    color: #888;
+    font-size: 12px;
+}
+
+.size-row input {
+    width: 110px;
+    flex: none;
+}
+
+.juice-info {
+    font-size: 13px;
+    color: #2e7d32;
+    font-weight: bold;
+    min-width: 200px;
+}
