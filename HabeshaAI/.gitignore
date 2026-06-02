@@ -1,0 +1,4 @@
+node_modules/
+.env
+habesha.db
+.DS_Store
